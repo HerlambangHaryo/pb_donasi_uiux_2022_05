@@ -3,13 +3,14 @@
 <meta name="description" content="">
 <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 <meta name="generator" content="Hugo 0.88.1">
-<title>Cheatsheet · Bootstrap v5.1</title>
+<title>
+  {{config('app.name')}}
+</title>
 
 <!-- Bootstrap core CSS --> 
 <link href="{{ asset('/public/bootstrap_v513') }}/css/bootstrap.min.css" rel="stylesheet"  > 
 <link href="{{ asset('/public/bootstrap_v513') }}/css/cheatsheet.css" rel="stylesheet"  > 
-<!-- Favicons -->
-<!-- Favicons -->
+<!-- Favicons --> 
 
 <style>
   .bd-placeholder-img {
