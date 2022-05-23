@@ -11,10 +11,26 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link  @if($title == 'Bencana') active @endif" 
+          href="{{ route('Bencana.index') }}">
+          <span data-feather="file"></span>
+          Bencana
+        </a>
+      </li> 
+
+      <li class="nav-item">
         <a class="nav-link  @if($title == 'Bantukami') active @endif" 
           href="{{ route('Bantukami.index') }}">
           <span data-feather="file"></span>
           Bantukami
+        </a>
+      </li> 
+
+      <li class="nav-item">
+        <a class="nav-link  @if($title == 'Bantukamiapproval') active @endif" 
+          href="{{ route('Bantukamiapproval.index') }}">
+          <span data-feather="file"></span>
+          Approval
         </a>
       </li> 
 

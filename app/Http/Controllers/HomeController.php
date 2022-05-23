@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use DB;
 
+use App\Models\Bantukami;
+
 class HomeController extends Controller
 {
     //
     public $template    = 'bootstrap_v513';
     public $mode        = '';
-    public $content     = 'Home';
+    public $themecolor  = '';
+    public $content     = 'Home'; 
 
     public function index()
     {
@@ -28,6 +31,7 @@ class HomeController extends Controller
             
             $template       = $this->template;
             $mode           = $this->mode;
+            $themecolor     = $this->themecolor;
             $content        = $this->content;
             $active_as      = $content;
 
@@ -36,19 +40,21 @@ class HomeController extends Controller
             
 
         // ----------------------------------------------------------- Action
-            $data           = array();
+            $data           = Bantukami::whereNotNull('is_approval')
+                                        ->get();
 
         // ----------------------------------------------------------- Send
             return view($view, 
                 compact(
-                    'user', 
-                    'data', 
+                    'template', 
+                    'mode', 
+                    'themecolor',
                     'content', 
+                    'user', 
                     'panel_name', 
-                    'active_as', 
+                    'active_as',
                     'view_file', 
-                    'template',
-                    'mode'
+                    'data', 
                 )
             );
         ///////////////////////////////////////////////////////////////

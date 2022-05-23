@@ -1,38 +1,81 @@
-@extends('template.'.$template.'.dashboard')
+@extends('template.'.$template.'.backend')
 
 @section('title', $panel_name)
 
 @section('content')  
-	
 
-     
-                <div class="btn-toolbar mb-2 mb-md-0">
-                  <div class="btn-group me-2">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button> 
-                  </div> 
+ 
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3"> 
+        	<x-bootstrap_v513.nav-pills-backend-create route="{!!$content!!}" /> 
+        </div>
+        <div class="card-body">
+            
+            <section class="timeline_area section_padding_130">
+                <div class="container"> 
+                    <div class="row">
+                        <div class="col-12"> 
+
+                            
+							<div class="table-responsive">
+								<table class="table table-striped table-sm">
+									<x-bootstrap_v513.thead-default/>
+										<tr>
+											<th scope="col">#</th>
+											<th scope="col">
+												Bencana
+											</th>
+											<th scope="col">
+												Lokasi
+											</th> 
+											<th scope="col">
+												Status
+											</th> 
+											<th scope="col"></th> 
+										</tr>
+									</thead>
+									<tbody>
+										@forelse ($data as $row)
+											<tr>
+												<td>
+													{{$row->id}}
+												</td>
+												<td>
+													{{$row->bencana}}
+												</td>
+												<td>
+													{{$row->kota}},
+													{{$row->kecamatan}},
+													{{$row->kelurahan}}
+												</td>
+												<td>
+													@if(is_null($row->is_approval) )
+														Menunggu Approval
+													@endif
+												</td>
+												<td>
+								    				<x-bootstrap_v513.button-dropdown-action route="{!!$content!!}" id="{!!$row->id!!}"/> 
+												</td>
+											</tr> 
+										@empty
+											<tr class="text-center">
+												<td colspan="4">
+													 empty
+												</td> 
+											</tr>
+										@endforelse
+									</tbody>
+								</table>
+							</div>
+
+                        </div>
+                    </div>
                 </div>
+            </section>
+ 
+        </div>
+    </div>  
      
-				<div class="table-responsive">
-				<table class="table table-striped table-sm">
-				<thead>
-				<tr>
-				  <th scope="col">#</th>
-				  <th scope="col">Header</th>
-				  <th scope="col">Header</th>
-				  <th scope="col">Header</th>
-				  <th scope="col">Header</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr>
-				  <td>1,001</td>
-				  <td>random</td>
-				  <td>data</td>
-				  <td>placeholder</td>
-				  <td>text</td>
-				</tr> 
-				</tbody>
-				</table>
-				</div>
+
 
 @endsection
