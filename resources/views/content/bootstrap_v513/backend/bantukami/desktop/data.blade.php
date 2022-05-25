@@ -23,10 +23,19 @@
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col">
+												Gambar
+											</th>
+											<th scope="col">
 												Bencana
 											</th>
 											<th scope="col">
+												Tanggal
+											</th> 
+											<th scope="col">
 												Lokasi
+											</th> 
+											<th scope="col">
+												User
 											</th> 
 											<th scope="col">
 												Status
@@ -40,8 +49,17 @@
 												<td>
 													{{$row->id}}
 												</td>
+												<td> 
+													<img 
+													 	src="{{ asset('/public/storage/bantukami/').'/'.$row->foto }}" 
+													 	class="rounded mx-auto d-block" 
+													 	width="100" >
+												</td>
 												<td>
 													{{$row->bencana}}
+												</td>
+												<td>
+													{{$row->tanggal}}
 												</td>
 												<td>
 													{{$row->kota}},
@@ -49,20 +67,23 @@
 													{{$row->kelurahan}}
 												</td>
 												<td>
+													{{$row->user->name}}
+												</td>
+												<td>
 													@if(is_null($row->is_approval) )
 														Menunggu Approval
-													@endif
+													@elseif($row->is_approval == 1 )
+														Approved
+													@endif 
 												</td>
 												<td>
 								    				<x-bootstrap_v513.button-dropdown-action route="{!!$content!!}" id="{!!$row->id!!}"/> 
 												</td>
 											</tr> 
 										@empty
-											<tr class="text-center">
-												<td colspan="4">
-													 empty
-												</td> 
-											</tr>
+                                            <tr class="text-center"> 
+                                                <x-message.tr-no-record-data col="7" />   
+                                            </tr>
 										@endforelse
 									</tbody>
 								</table>

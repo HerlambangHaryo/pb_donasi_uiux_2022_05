@@ -18,6 +18,7 @@ class CreateTitikpengungsiansTable extends Migration
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

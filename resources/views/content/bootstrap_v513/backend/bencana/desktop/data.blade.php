@@ -6,13 +6,8 @@
 
  
     <div class="card mb-4 rounded-3 shadow-sm">
-        <div class="card-header py-3"> 
-			<div class="btn-group me-2">
-				<a type="button" class="btn btn-sm btn-outline-secondary"
-					href="{{ route($content.'.create') }}">
-					Create
-				</a> 
-			</div> 
+        <div class="card-header py-3">  
+            <x-bootstrap_v513.nav-pills-backend-create route="{{ $content }}"/>
         </div>
         <div class="card-body">
             

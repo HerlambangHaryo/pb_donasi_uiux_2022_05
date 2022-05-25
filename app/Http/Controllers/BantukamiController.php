@@ -41,7 +41,8 @@ class BantukamiController extends Controller
             $view           = 'content.'.$this->template.'.backend.'.strtolower($this->content).'.'.$additional_view.'.'.$view_file;
             
         // ----------------------------------------------------------- Action 
-            $data = Bantukami::get();
+            $data = Bantukami::where('user_id','=', $user->id) 
+                                ->get();
 
         // ----------------------------------------------------------- Send
             return view($view,  
@@ -127,8 +128,8 @@ class BantukamiController extends Controller
                 'provinsi'          => $request->provinsi, 
                 'kota'              => $request->kota, 
                 'kecamatan'         => $request->kecamatan, 
-                'kelurahan'         => $request->kelurahan, 
-                'foto'              => $request->foto, 
+                'kelurahan'         => $request->kelurahan,  
+                'foto'              => $image->hashName(),
                 'deskripsi'         => $request->deskripsi, 
                 'tanggal'           => $request->tanggal, 
                 'user_id'           => $user->id,
@@ -198,6 +199,9 @@ class BantukamiController extends Controller
 
     public function update(Request $request, Bantukami $Bantukami)
     {
+        // ----------------------------------------------------------- Auth
+            $user = auth()->user();  
+
         // ----------------------------------------------------------- Initialize
             $content        = $this->content;
 
@@ -207,8 +211,8 @@ class BantukamiController extends Controller
                 'provinsi'          => 'required', 
                 'kota'              => 'required', 
                 'kecamatan'         => 'required', 
-                'kelurahan'         => 'required', 
-                'foto'              => 'image|mimes:png,jpg,jpeg',
+                'kelurahan'         => 'required',
+                'tanggal'           => 'required',    
                 'deskripsi'         => 'required',  
             ]);
  
@@ -216,13 +220,17 @@ class BantukamiController extends Controller
             
             if($request->foto != '')
             {
+                $image = $request->file('foto');
+                $image->storeAs('public/bantukami', $image->hashName());
+
                 $Bantukami->update([
                     'bencana'           => $request->bencana, 
                     'provinsi'          => $request->provinsi, 
                     'kota'              => $request->kota, 
                     'kecamatan'         => $request->kecamatan, 
-                    'kelurahan'         => $request->kelurahan, 
-                    'foto'              => $request->foto, 
+                    'kelurahan'         => $request->kelurahan,  
+                    'tanggal'           => $request->tanggal, 
+                    'foto'              => $image->hashName(),
                     'deskripsi'         => $request->deskripsi,  
                 ]);
             }
@@ -234,9 +242,16 @@ class BantukamiController extends Controller
                     'kota'              => $request->kota, 
                     'kecamatan'         => $request->kecamatan, 
                     'kelurahan'         => $request->kelurahan,  
-                    'deskripsi'         => $request->deskripsi,  
+                    'deskripsi'         => $request->deskripsi, 
+                    'tanggal'           => $request->tanggal,  
                 ]);
             }
+
+            Timeline::create([ 
+                'bantukami_id'      => $Bantukami->id, 
+                'user_id'           => $user->id, 
+                'deskripsi'         => 'Merubah bantukami',  
+            ]);
 
         // ----------------------------------------------------------- Send
             if($Bantukami)

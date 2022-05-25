@@ -10,6 +10,8 @@
         </div>
         <div class="card-body">
             
+            <x-bootstrap_v513.nav-pills-backend-create-sub route="{{ $content }}" id="{{ $content }}"/>
+
             <section class="timeline_area section_padding_130">
                 <div class="container"> 
                     <div class="row">

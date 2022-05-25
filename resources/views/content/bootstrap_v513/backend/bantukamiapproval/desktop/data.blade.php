@@ -23,17 +23,24 @@
 										<tr>
 											<th scope="col">#</th>
 											<th scope="col">
+												Gambar
+											</th>
+											<th scope="col">
 												Bencana
 											</th>
+											<th scope="col">
+												Tanggal
+											</th> 
 											<th scope="col">
 												Lokasi
 											</th> 
 											<th scope="col">
-												Status
+												User
 											</th> 
 											<th scope="col">
-												User
-											</th>   
+												Status
+											</th> 
+											<th scope="col"></th> 
 										</tr>
 									</thead>
 									<tbody>
@@ -42,8 +49,17 @@
 												<td>
 													{{$row->id}}
 												</td>
+												<td> 
+													 <img 
+													 	src="{{ asset('/public/storage/bantukami/').'/'.$row->foto }}" 
+													 	class="rounded mx-auto d-block" 
+													 	width="100" >
+												</td>
 												<td>
 													{{$row->bencana}}
+												</td>
+												<td>
+													{{$row->tanggal}}
 												</td>
 												<td>
 													{{$row->kota}},
@@ -51,24 +67,41 @@
 													{{$row->kelurahan}}
 												</td>
 												<td>
+													{{$row->user->name}}
+												</td>
+												<td>
 													@if(is_null($row->is_approval) )
 														Menunggu Approval
+													@elseif($row->is_approval == 1 )
+														Approved
 													@endif
 												</td>
 												<td> 
-													<x-bootstrap_v513.dropdown-class-default/> 
-														<div class="btn-group  btn-group-sm" role="group" aria-label="Basic example">
-															<a type="button"  
-																class="btn btn-outline-primary">
-																View
-															</a> 
-															<a type="button"  
-																href="{{ route('Bantukamiapproval.edit', $row->id) }}" 
-																class="btn btn-success">
-																Approve
-															</a> 
+													@if($row->is_approval != 1 )
+														<x-bootstrap_v513.dropdown-class-default/> 
+															<div class="btn-group  btn-group-sm" role="group" aria-label="Basic example">
+																<a type="button"  
+																	class="btn btn-outline-primary">
+																	View
+																</a> 
+																<a type="button"  
+																	href="{{ route('Bantukamiapproval.edit', $row->id) }}" 
+																	class="btn btn-success">
+																	Approve
+																</a> 
+															</div>
 														</div>
-													</div>
+													@elseif($row->is_approval == 1 )
+														<x-bootstrap_v513.dropdown-class-default/> 
+															<div class="btn-group  btn-group-sm" role="group" aria-label="Basic example"> 
+																<a type="button"  
+																	href="{{ route('Bantukamiapproval.edit', $row->id) }}" 
+																	class="btn btn-warning">
+																	End
+																</a> 
+															</div>
+														</div>
+													@endif
 												</td>
 											</tr> 
 										@empty

@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Bantukami;
 use App\Models\Timeline;
 
-class BantukamiapprovalController extends Controller
+class DetailpembelanjaandanaController extends Controller
 {
     //
     public $template    = 'bootstrap_v513';
     public $mode        = '';
     public $themecolor  = '';
-    public $content     = 'Bantukamiapproval';
+    public $content     = 'Detailpembelanjaandana';
 
     public function index()
     {
@@ -38,11 +38,10 @@ class BantukamiapprovalController extends Controller
             $active_as      = $content;
 
             $view_file      = 'data';
-            $view           = 'content.'.$this->template.'.backend.'.strtolower($this->content).'.'.$additional_view.'.'.$view_file;
+            $view           = 'content.'.$this->template.'.frontend.'.strtolower($this->content).'.'.$additional_view.'.'.$view_file;
             
         // ----------------------------------------------------------- Action 
-            $data = Bantukami::orderBy('created_at', 'Desc')
-                            ->get();
+            $data = Bantukami::get();
 
         // ----------------------------------------------------------- Send
             return view($view,  
@@ -61,7 +60,7 @@ class BantukamiapprovalController extends Controller
         ///////////////////////////////////////////////////////////////
     }
 
-    public function edit(Bantukami $Bantukamiapproval)
+    public function show($id)
     {
         // ----------------------------------------------------------- Auth
             $user = auth()->user();  
@@ -79,10 +78,13 @@ class BantukamiapprovalController extends Controller
             $content        = $this->content;
             $active_as      = $content;
 
-            $view_file      = 'edit';
-            $view           = 'content.'.$this->template.'.backend.'.strtolower($this->content).'.'.$additional_view.'.'.$view_file;
+            $view_file      = 'show';
+            $view           = 'content.'.$this->template.'.frontend.'.strtolower($this->content).'.'.$additional_view.'.'.$view_file;
             
         // ----------------------------------------------------------- Action 
+            $Timeline       = Timeline::where('bantukami_id', '=', $id)
+                                        ->orderBy('created_at', 'Desc')
+                                        ->get();
 
         // ----------------------------------------------------------- Send
             return view($view,  
@@ -94,47 +96,11 @@ class BantukamiapprovalController extends Controller
                     'user', 
                     'panel_name', 
                     'active_as',
-                    'view_file', 
-                    'Bantukamiapproval', 
+                    'view_file',  
+                    'id',
+                    'Timeline', 
                 )
             );
-        ///////////////////////////////////////////////////////////////
-    }
-
-    public function update(Request $request, Bantukami $Bantukamiapproval)
-    {
-        // ----------------------------------------------------------- Auth
-            $user = auth()->user();  
-
-        // ----------------------------------------------------------- Initialize
-            $content        = $this->content;
-
-        // ----------------------------------------------------------- Action 
-            $Bantukami = Bantukami::findOrFail($Bantukamiapproval->id);
-             
-            $Bantukami->update([
-                'is_approval'       => 1,  
-            ]); 
-
-            Timeline::create([ 
-                'bantukami_id'      => $Bantukami->id, 
-                'user_id'           => $user->id, 
-                'deskripsi'         => 'Approval bantukami',  
-            ]);
-
-        // ----------------------------------------------------------- Send
-            if($Bantukami)
-            {
-                return redirect()
-                    ->route($content.'.index')
-                    ->with(['Success' => 'Data successfully saved!']);
-            }
-            else
-            {
-                return redirect()
-                    ->route($content.'.index')
-                    ->with(['Error' => 'Data Gagal Disimpan!']);
-            }
         ///////////////////////////////////////////////////////////////
     }
 }

@@ -15,15 +15,17 @@
 
           <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li>
-              <a href="#" class="nav-link px-2 link-secondary">
+              <a href="{{ route('Home.index') }}" class="nav-link px-2 link-dark">
                 BantuKami
               </a>
             </li>
+            <!--
             <li>
-              <a href="#" class="nav-link px-2 link-dark">
-                Terimakasih
+              <a href="{{ route('Terimakasih.index') }}" class="nav-link px-2 link-dark">
+                Ucapan Terimakasih
               </a>
             </li> 
+            -->
           </ul>
 
           <div class="col-md-3 text-end">
@@ -46,7 +48,8 @@
                               <hr class="dropdown-divider">
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#">
+                              <a class="dropdown-item" 
+                                href="{{ route('logout.perform') }}">
                                 Sign out
                               </a>
                             </li>

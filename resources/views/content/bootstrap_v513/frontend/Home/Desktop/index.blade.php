@@ -4,42 +4,47 @@
 
 @section('content')  
      
-    <div class="container px-4 py-5" id="custom-cards">
-      <h2 class="pb-2 border-bottom">
-        Bantu Kami
-      </h2>
+  <div class="container px-4 py-5" id="custom-cards">  
 
-      <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+    <div class="album py-5  ">
+      <div class="container">
 
-        @foreach($data as $row)
-          <a href="{{ route('Detailbantukami.show', $row->id ) }}">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+          @foreach($data as $row)
             <div class="col">
-              <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" >
-                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-                  <h2 class="pt-5 mt-2 mb-4 display-6 lh-1 fw-bold">
-                    {{ $row->bencana }} 
-                    {{ $row->kota }}
-                  </h2>
-                  <ul class="d-flex list-unstyled mt-auto">
-                    <li class="me-auto">
-                      <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
-                    </li>
-                    <li class="d-flex align-items-center me-3">
-                      <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
-                      <small>Earth</small>
-                    </li>
-                    <li class="d-flex align-items-center">
-                      <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
-                      <small>3d</small>
-                    </li>
-                  </ul>
+              <div class="card shadow-sm">
+                <img src="{{ asset('/public/storage/bantukami/').'/'.$row->foto }}" height="250px"   >
+
+                <div class="card-body">
+                  <p class="card-text">
+                    <h5>
+                      {{ $row->bencana }}, di {{ $row->kota }}.
+                    </h5>
+                    <br/> 
+                    {{ $row->deskripsi }}
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                      {{ $row->user->name }}, {{ $row->tanggal }}
+                    </small>
+                    <div class="btn-group"> 
+                      <a type="button" 
+                        href="{{ route('Detailbantukami.show', $row->id ) }}" 
+                        class="btn btn-sm btn-info">
+                        Bantukami
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </a>
-        @endforeach
- 
+          @endforeach
+
+        </div>
       </div>
-    </div> 
+    </div>
+    
+  </div> 
  
 @endsection

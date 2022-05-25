@@ -15,7 +15,12 @@ class CreateDonasisTable extends Migration
     {
         Schema::create('donasis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('bantukami_id');
+            $table->foreignId('user_id');
+            $table->integer('nominal');
+            $table->string('pesan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

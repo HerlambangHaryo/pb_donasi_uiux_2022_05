@@ -7,6 +7,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link @if($active == 'Updateinfo') active @endif" 
+            href="{{ route('Updateinfo.show', $id) }}">
+            Update Info
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link @if($active == 'Timbantuan') active @endif" 
             href="{{ route('Timbantuan.show', $id) }}">
             Tim Bantuan

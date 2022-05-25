@@ -101,6 +101,23 @@
             </div>
 
             <div class="form-group row mb-3">
+                <x-html.label-form title="Tanggal" />    
+                <div class="col-md-8">
+                    <input type="date" 
+                        name        = "tanggal" 
+                        class       = "form-control form-control-lg @error('tanggal') is-invalid @enderror" 
+                        value       = "{{ old('tanggal', $Bantukami->tanggal) }}"    
+                        
+                    />                            
+                    @error('tanggal')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>  
+            </div>
+
+            <div class="form-group row mb-3">
                 <x-html.label-form title="Foto Bencana" />    
                 <div class="col-md-8">
                     <input type="file" 

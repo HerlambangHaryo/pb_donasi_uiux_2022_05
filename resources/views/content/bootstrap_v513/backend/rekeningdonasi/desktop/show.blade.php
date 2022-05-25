@@ -11,7 +11,9 @@
         </div>
         <div class="card-body">
             
-            <section class="timeline_area section_padding_130">
+            <x-bootstrap_v513.nav-pills-backend-create-sub route="{{ $content }}" id="{{ $Rekeningdonasi->id }}"/>
+
+            <section class="timeline_area section_padding_130 mt-4">
                 <div class="container"> 
                     <div class="row">
                         <div class="col-12"> 

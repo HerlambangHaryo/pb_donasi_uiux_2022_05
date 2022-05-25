@@ -254,7 +254,7 @@ class DetailbantukamiController extends Controller
         ///////////////////////////////////////////////////////////////
     }
 
-    public function show(Bantukami $Detailbantukami)
+    public function show($id)
     {
         // ----------------------------------------------------------- Auth
             $user = auth()->user();  
@@ -276,7 +276,7 @@ class DetailbantukamiController extends Controller
             $view           = 'content.'.$this->template.'.frontend.'.strtolower($this->content).'.'.$additional_view.'.'.$view_file;
             
         // ----------------------------------------------------------- Action 
-            $Timeline       = Timeline::where('bantukami_id', '=', $Detailbantukami->id)
+            $Timeline       = Timeline::where('bantukami_id', '=', $id)
                                         ->orderBy('created_at', 'Desc')
                                         ->get();
 
@@ -290,8 +290,8 @@ class DetailbantukamiController extends Controller
                     'user', 
                     'panel_name', 
                     'active_as',
-                    'view_file', 
-                    'Detailbantukami', 
+                    'view_file',  
+                    'id',
                     'Timeline', 
                 )
             );
